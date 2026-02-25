@@ -1,0 +1,11 @@
+
+.presentacion{
+    background-image: url("../../../public/images/fondotitulo.png");
+    background-position: center;
+    background-size: cover;
+    height: 800px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow:0 4px 8px rgba(29, 29, 29, 0.2) ;
+}
+

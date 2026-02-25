@@ -1,0 +1,293 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body{
+    background-image:  url('../../../public/images/fondotitulo.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.main-div{
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-main {
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.opciones{
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.479);
+}
+
+.boton-login{
+    font-size: 1em;
+    border: none;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+
+.boton-registro{
+    font-size: 1.1em;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.form-login{
+    display: block;
+    justify-items: center;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.f-login{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.f-login input{
+    width: 23rem;
+    height: 3rem;
+    border-radius: 8px;
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background-color: #102216;
+    border: solid 1px #275c3a;
+
+}
+
+.f-login p{
+    font-size: 1em;
+    font-weight: 600;
+}
+
+
+.div-olvidaste{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 22rem;
+    color: black;
+    transition: all 0.5s ease;
+    margin: 0 auto;
+}
+
+.div-olvidaste a{
+    width: 12rem;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.5s ease;
+}
+
+.div-olvidaste button{
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 8px;
+    border: none;
+    margin-top: 1rem;
+    background-color: #39a360;
+    color: black;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.div-cuenta{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+    width: 22rem;
+}
+
+.div-cuenta a{
+    text-decoration: none;
+    color: #39c96e;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover{
+        color: #275c3a;
+    }
+}
+
+.registro-con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+}
+
+.registro-con hr{
+    
+    width: 6rem;
+    margin: 1rem;
+    border-color: #7f8381;
+}
+
+.registro-con p{
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #7f8381;
+}
+
+
+
+
+
+.google-facebook{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+    padding: 0.5rem;
+    width: 20rem;
+}
+
+.google-facebook button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    margin: 0 auto;
+    width: 20rem;
+}
+
+.google-facebook img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: none;
+    color: black;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.inicia-sesion-form{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-registro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 1.5rem;
+}
+
+
+
+.f-registro div{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    margin:1rem;
+    gap: 0.5rem;
+}
+
+.f-registro input{
+    width: 23rem;
+    height: 3.5rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    background-color: #102216;
+    border: solid 1px #275c3a;
+}
+
+.f-registro p{
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.google-facebook-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 0 auto;
+    width: 22rem;
+}
+
+.google-facebook-form button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
+    width: 20rem;
+}
+
+.google-facebook-form img{
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.div-cuenta-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    margin: 0 auto;
+    width: 22.5rem;
+}
+
+.div-cuenta-form a{
+    text-decoration: none;
+    color: #39c96e;
+    font-weight: 600;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    &:hover{
+        color: #275c3a;
+    }
+}
+
+.registro-con-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registro-con-form hr{
+    
+    width: 6rem;
+    margin: 1rem;
+    border-color: #7f8381;
+}
+
+.registro-con-form p{
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #7f8381;
+}
