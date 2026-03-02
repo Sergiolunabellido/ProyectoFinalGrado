@@ -1,7 +1,6 @@
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 
-
 export const renovarToken = async () => {
     try {
         let respuesta = await fetch('http://localhost:5000/refresh', {
@@ -28,18 +27,20 @@ export const renovarToken = async () => {
     }
 };
 
-
 export function Libro3D({ libro }) {
     const portada = useLoader(TextureLoader, libro.url_imagen);
 
+    // Orden de materiales en BoxGeometry:
+    // 0: derecha, 1: izquierda, 2: arriba, 3: abajo, 4: frente, 5: atras
     return (
         <mesh rotation={[0, 0.5, 0]}>
             <boxGeometry args={[1.25, 1.9, 0.32]} />
-            <meshStandardMaterial color="#303030" roughness={0.65} />
-            <meshStandardMaterial color="#303030" roughness={0.65} />
-            <meshStandardMaterial color="#191919" roughness={0.9} />
-            <meshStandardMaterial color="#191919" roughness={0.9} />
-            <meshStandardMaterial map={portada} roughness={0.5} />
+            <meshStandardMaterial attach="material-0" color="#e9dec7" roughness={0.92} metalness={0.0} emissive="#2b261f" emissiveIntensity={0.08} />
+            <meshStandardMaterial attach="material-1" map={portada} color="#ffffff" roughness={0.55} metalness={0.05} />
+            <meshStandardMaterial attach="material-2" color="#efe5cf" roughness={0.95} metalness={0.0} emissive="#2d281f" emissiveIntensity={0.08} />
+            <meshStandardMaterial attach="material-3" color="#e3d8bf" roughness={0.96} metalness={0.0} emissive="#29241c" emissiveIntensity={0.08} />
+            <meshStandardMaterial attach="material-4" map={portada} color="#ffffff" roughness={0.5} metalness={0.05} />
+            <meshStandardMaterial attach="material-5" map={portada} color="#ffffff" roughness={0.55} metalness={0.05} />
         </mesh>
     );
 }

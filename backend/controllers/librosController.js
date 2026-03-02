@@ -44,6 +44,32 @@ async function libros(req, res) {
     }
 }
 
+async function libroId(req, res) {
+    let conexion;
+    let {id_libro} = req.body;
+    try {
+        conexion = await conexionBD();
+        const [filas] = await conexion.execute('SELECT * FROM libros where id_libro = ?', [id_libro]);
+
+        if(filas.length === 0){
+            res.status(404).json({
+                ok: false,
+                mensaje: "No se han encontrado libros en la base de datos"
+            })
+        }
+
+        res.status(200).json({
+            ok: true,
+            filas: filas
+        }) 
+    } catch (e) {
+        console.error('Error al obtener los libros de la BD:', e);
+        throw e;
+    } finally {
+        if (conexion) await conexion.end();
+    }
+}
+
 async function librosCompletos(req, res) {
     let conexion;
     try {
@@ -212,5 +238,6 @@ module.exports= {
     librosCompradosUser,
     eliminarFavoritoPorId,
     librosCompletos,
-    librosFiltradosGenero
+    librosFiltradosGenero,
+    libroId
 }

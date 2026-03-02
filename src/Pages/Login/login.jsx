@@ -27,7 +27,7 @@ export default function Login() {
                         {/* --- FORMULARIO LOGIN --- */}
                         <div className={isLoginView ? "form-login" : "hidden"} id="form-login">
                             <form className="f-login">
-                                <div className="correo-login">
+                                <div className="correo-login" >
                                     <p className="p-correo-login">Correo Electrónico</p>
                                     <input type="text" className="input-correo-login " placeholder="Usuario" 
                                     onChange={(e) =>{setNombre(e.target.value)}}/>
@@ -37,11 +37,11 @@ export default function Login() {
                                     <input type="password" className="input-contrasena-login" placeholder="Contraseña" 
                                     onChange={(e) =>{setContraseña(e.target.value)}} />
                                 </div>
+                            </form>
                                 <div className="div-olvidaste">
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a href="#">¿Olvidaste tu contraseña?</a>
                                     <BotonEnviarLogin usuario={nombre} contraseña={contraseña}/>
                                 </div>
+                            
                                 <div className="div-cuenta">
                                     <p>¿No tienes una cuenta?</p>
                                     {/* Enlace para cambiar a Registro */}
@@ -63,7 +63,7 @@ export default function Login() {
                                         <p>Facebook</p>
                                     </button>
                                 </div>
-                            </form>
+                            
                         </div>
 
                         {/* --- FORMULARIO REGISTRO --- */}

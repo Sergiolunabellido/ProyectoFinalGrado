@@ -47,7 +47,7 @@ export default function Header() {
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li><a href="/catalogo" className="hover:underline ">Catálogo</a></li>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <li><a href="#" className="hover:underline ">Novedades</a></li>
+                                <li><a href="#seccionDestacados" className="hover:underline ">Novedades</a></li>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li><a href="#" className="hover:underline ">Sobre nosotros</a></li>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

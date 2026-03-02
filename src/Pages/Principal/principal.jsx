@@ -73,7 +73,7 @@ export default function Principal (){
                         </button>
                     </section>
 
-                    <section className="mt-10 mb-10 w-[100%] ">
+                    <section className="mt-10 mb-10 w-[100%] " id='seccionDestacados'>
                         <div className="p-10 flex items-start">
                             <h2 className="text-white text-4xl font-bold mb-10">Nuestras gemas destacadas</h2>
                         </div>

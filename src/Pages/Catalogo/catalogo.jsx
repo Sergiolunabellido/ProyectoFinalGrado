@@ -14,6 +14,14 @@ export default function Catalogo(){
     const [generosSeleccionados, setGenerosSeleccionados] = useState([]);
 
 
+    const irPaginaLibro = (libro) =>{
+        navigate(`/libro/${libro.id_libro}`,
+            {
+                state : {libro}
+            }
+        )
+    }
+
     const manejarCambioGenero = (e) =>{
         const {value, checked} = e.target;
 
@@ -74,12 +82,12 @@ export default function Catalogo(){
         <div className='body1 overflow-x-hidden flex flex-col w-screen h-full bg-[#102216] items-center'>
             <Header/>
             <hr className="border-gray-700 border-solid w-[100%] m-[1rem] sm:w-800px opacity-50"/>
-            <div className='flex w-[100%] h-full'>
-                <div className='flex flex-col items-start bg-white/5 w-[15%] h-[38%] hidden md:flex rounded-xl p-5 m-5'>
+            <div className='flex w-[100%] h-full ms-[40%] sm:m-3 justify-center'>
+                <div className='flex flex-col items-start bg-white/5 w-[15%] h-[23rem] hidden md:flex rounded-xl p-5 m-5'>
 
                     <h1 className='text-white font-bold text-[1.5rem]'>Filtros</h1>
 
-                    <div className='flex flex-col items-start w-full' id='generos'>
+                    <div className='flex flex-col items-start w-full ' id='generos'>
                         <p className='text-white/50 text-[1.3rem] m-1.5'>Géneros</p>
                         <hr className="border-gray-700 border-solid w-[100%] "/>
                         <div className='flex items-center gap-2 m-3'>
@@ -104,12 +112,12 @@ export default function Catalogo(){
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-wrap items-start  float-rigth w-[90%] h-[100%] m-2'>
+                <div className='flex flex-wrap items-center  w-[90%] h-[100%] m-2'>
                         {libros.map((libro, index) => (
                                 <div
                                     key={`${libro.id_libro ?? "libro"}`}
                                     className="flex flex-col flex-shrink-0 w-[14rem] m-3 items-center"
-                                    
+                                    onClick={()=> irPaginaLibro(libro)}
                                 >
                                     <div
                                         id="libroFavorito"
@@ -147,7 +155,8 @@ export default function Catalogo(){
                 </div>
 
             </div>
-
+            <hr className="border-gray-700 border-solid w-[100%] m-[1rem] sm:w-800px opacity-50"/>
+            <Footer/>
         </div>
     )
 }

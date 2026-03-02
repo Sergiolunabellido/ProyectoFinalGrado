@@ -4,7 +4,7 @@ const { comprobarLogin } = require('../controllers/authController');
 const { registrarUsuario } = require('../controllers/registerController');
 const { refreshAccessToken } = require('../controllers/refreshTokenController')
 const {listarUsuariosId, cerrarSesion} = require('../controllers/usersController')
-const {libros,librosCompletos,librosFavoritosUser, librosCompradosUser, eliminarFavoritoPorId, librosFiltradosGenero} = require('../controllers/librosController')
+const {libros,libroId,librosCompletos,librosFavoritosUser, librosCompradosUser, eliminarFavoritoPorId, librosFiltradosGenero} = require('../controllers/librosController')
 const authMiddleware = require( '../middleware/auth.middleware');
 
 const router = express.Router();
@@ -22,6 +22,7 @@ router.post('/libros', librosCompletos)
 router.post('/eliminarLibro', authMiddleware, eliminarFavoritoPorId)
 router.post('/cerrarSesion', cerrarSesion )
 router.post('/librosPublicos', libros)
+router.post('/libroId', libroId)
 router.post('/librosFiltrados', librosFiltradosGenero)
 
 module.exports = router;
