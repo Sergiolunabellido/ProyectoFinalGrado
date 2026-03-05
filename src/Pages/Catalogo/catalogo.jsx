@@ -6,12 +6,15 @@ import { OrbitControls } from "@react-three/drei";
 import { Suspense, useState, useEffect } from "react"
 import {useNavigate} from "react-router-dom";
 
+const LIBROS_POR_PAGINA = 12;
+
 export default function Catalogo(){
 
 
     const navigate = useNavigate();
     const [libros, setLibros] = useState([]);
     const [generosSeleccionados, setGenerosSeleccionados] = useState([]);
+    const [paginaActual, setPaginaActual] = useState(1);
 
 
     const irPaginaLibro = (libro) =>{
@@ -56,6 +59,34 @@ export default function Catalogo(){
         }
         
     };
+
+
+     const filtradoTitulo = async () =>{
+    
+        try{
+
+
+            let respuesta = await fetch("http://localhost:5000/libroTitulo",{
+                method: 'POST',
+                headers: {
+                    "Content-type": 'application/json', 
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                credentials : 'include'
+            });
+
+        
+    
+            const datos = await respuesta.json();
+            if(datos.ok && datos.filas.length > 0){
+                setLibros(datos.filas);
+            }
+            
+        }catch(e){
+            console.error("Error al pedir los datos del usuario:  ", e)
+        }
+        
+    };
     
 
  useEffect(() => {
@@ -77,13 +108,27 @@ export default function Catalogo(){
   fetchFiltrados();
 }, [generosSeleccionados]);
 
+    useEffect(() => {
+        setPaginaActual(1);
+    }, [libros]);
+
+    const totalPaginas = Math.max(1, Math.ceil(libros.length / LIBROS_POR_PAGINA));
+    const inicio = (paginaActual - 1) * LIBROS_POR_PAGINA;
+    const fin = inicio + LIBROS_POR_PAGINA;
+    const librosPaginados = libros.slice(inicio, fin);
+
+    const irPagina = (numeroPagina) => {
+        if (numeroPagina < 1 || numeroPagina > totalPaginas) return;
+        setPaginaActual(numeroPagina);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     return (
-        <div className='body1 overflow-x-hidden flex flex-col w-screen h-full bg-[#102216] items-center'>
-            <Header/>
+        <div className='body1 overflow-x-hidden flex flex-col w-screen min-h-screen bg-[#102216] items-center'>
+            <Header />
             <hr className="border-gray-700 border-solid w-[100%] m-[1rem] sm:w-800px opacity-50"/>
-            <div className='flex w-[100%] h-full ms-[40%] sm:m-3 justify-center'>
-                <div className='flex flex-col items-start bg-white/5 w-[15%] h-[23rem] hidden md:flex rounded-xl p-5 m-5'>
+            <div className='flex w-[100%] ms-[40%] sm:m-3 justify-center'>
+                <div className='flex flex-col items-start bg-white/5 w-[15%] h-[25rem] hidden md:flex rounded-xl p-5 m-5'>
 
                     <h1 className='text-white font-bold text-[1.5rem]'>Filtros</h1>
 
@@ -110,10 +155,14 @@ export default function Catalogo(){
                             <input type="checkbox" value='Novela'onChange={manejarCambioGenero}/>
                             <p className='text-white/50 text-[1rem]'>Novela</p>
                         </div>
+                        <div className='flex items-center gap-2 m-3'>
+                            <input type="checkbox" value='Programacion'onChange={manejarCambioGenero}/>
+                            <p className='text-white/50 text-[1rem]'>Programacion</p>
+                        </div>
                     </div>
                 </div>
-                <div className='flex flex-wrap items-center  w-[90%] h-[100%] m-2'>
-                        {libros.map((libro, index) => (
+                <div className='flex flex-wrap items-center w-[90%] m-2'>
+                        {librosPaginados.map((libro) => (
                                 <div
                                     key={`${libro.id_libro ?? "libro"}`}
                                     className="flex flex-col flex-shrink-0 w-[14rem] m-3 items-center"
@@ -154,6 +203,38 @@ export default function Catalogo(){
                             ))}
                 </div>
 
+            </div>
+            <div className="flex items-center justify-center gap-2 mb-5 flex-wrap">
+                <button
+                    type="button"
+                    className="px-3 py-1 rounded bg-white/10 text-white disabled:opacity-40"
+                    onClick={() => irPagina(paginaActual - 1)}
+                    disabled={paginaActual === 1}
+                >
+                    Anterior
+                </button>
+
+                {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((num) => (
+                    <button
+                        key={num}
+                        type="button"
+                        onClick={() => irPagina(num)}
+                        className={`px-3 py-1 rounded ${
+                            paginaActual === num ? "bg-green-600 text-black font-bold" : "bg-white/10 text-white"
+                        }`}
+                    >
+                        {num}
+                    </button>
+                ))}
+
+                <button
+                    type="button"
+                    className="px-3 py-1 rounded bg-white/10 text-white disabled:opacity-40"
+                    onClick={() => irPagina(paginaActual + 1)}
+                    disabled={paginaActual === totalPaginas}
+                >
+                    Siguiente
+                </button>
             </div>
             <hr className="border-gray-700 border-solid w-[100%] m-[1rem] sm:w-800px opacity-50"/>
             <Footer/>

@@ -26,19 +26,20 @@ async function libros(req, res) {
         const [filas] = await conexion.execute('SELECT * FROM libros LIMIT 6');
 
         if(filas.length === 0){
-            res.status(404).json({
+            return res.status(404).json({
                 ok: false,
                 mensaje: "No se han encontrado libros en la base de datos"
             })
+            
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             ok: true,
             filas: filas
         }) 
     } catch (e) {
         console.error('Error al obtener los libros de la BD:', e);
-        throw e;
+
     } finally {
         if (conexion) await conexion.end();
     }
@@ -52,23 +53,57 @@ async function libroId(req, res) {
         const [filas] = await conexion.execute('SELECT * FROM libros where id_libro = ?', [id_libro]);
 
         if(filas.length === 0){
-            res.status(404).json({
+            return res.status(404).json({
                 ok: false,
                 mensaje: "No se han encontrado libros en la base de datos"
             })
+            
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             ok: true,
             filas: filas
         }) 
     } catch (e) {
         console.error('Error al obtener los libros de la BD:', e);
-        throw e;
+
     } finally {
         if (conexion) await conexion.end();
     }
 }
+
+
+async function libroTitulo(req, res) {
+    let conexion;
+    let {nombre_libro} = req.body;
+    try {
+        conexion = await conexionBD();
+        const [filas] = await conexion.execute('SELECT * FROM libros where LOWER(titulo) LIKE LOWER(?)', [`%${nombre_libro}%`]);
+
+        if(filas.length === 0){
+            return res.status(404).json({
+                ok: false,
+                mensaje: `No se han encontrado el libro con titulo: ${nombre_libro} en la base de datos`
+            })
+            
+        }
+
+        return res.status(200).json({
+            ok: true,
+            filas: filas
+        }) 
+    } catch (e) {
+        console.error('Error al obtener los libros de la BD:', e);
+        return res.status(500).json({
+            ok: false,
+            mensaje: "Error interno del servidor"
+        });
+
+    } finally {
+        if (conexion) await conexion.end();
+    }
+}
+
 
 async function librosCompletos(req, res) {
     let conexion;
@@ -77,13 +112,14 @@ async function librosCompletos(req, res) {
         const [filas] = await conexion.execute('SELECT * FROM libros');
 
         if(filas.length === 0){
-            res.status(404).json({
+            return res.status(404).json({
                 ok: false,
                 mensaje: "No se han encontrado libros en la base de datos"
             })
+            return
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             ok: true,
             filas: filas
         }) 
@@ -126,6 +162,7 @@ async function librosFavoritosUser(req, res) {
                 ok: false,
                 mensaje: "No se han encontrado libros favoritos para este usuario"
             })
+            
         }
 
         return res.status(200).json({
@@ -239,5 +276,6 @@ module.exports= {
     eliminarFavoritoPorId,
     librosCompletos,
     librosFiltradosGenero,
-    libroId
+    libroId,
+    libroTitulo
 }

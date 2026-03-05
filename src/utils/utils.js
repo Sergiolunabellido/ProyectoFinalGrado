@@ -27,8 +27,13 @@ export const renovarToken = async () => {
     }
 };
 
+const TEXTURA_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
 export function Libro3D({ libro }) {
-    const portada = useLoader(TextureLoader, libro.url_imagen);
+    const urlPortada = typeof libro?.url_imagen === "string" ? libro.url_imagen.trim() : "";
+    const portadaSrc = urlPortada && !urlPortada.includes(",") ? urlPortada : TEXTURA_TRANSPARENTE;
+
+    const portada = useLoader(TextureLoader, portadaSrc);
 
     // Orden de materiales en BoxGeometry:
     // 0: derecha, 1: izquierda, 2: arriba, 3: abajo, 4: frente, 5: atras

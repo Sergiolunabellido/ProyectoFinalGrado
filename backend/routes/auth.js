@@ -4,7 +4,7 @@ const { comprobarLogin } = require('../controllers/authController');
 const { registrarUsuario } = require('../controllers/registerController');
 const { refreshAccessToken } = require('../controllers/refreshTokenController')
 const {listarUsuariosId, cerrarSesion} = require('../controllers/usersController')
-const {libros,libroId,librosCompletos,librosFavoritosUser, librosCompradosUser, eliminarFavoritoPorId, librosFiltradosGenero} = require('../controllers/librosController')
+const {libros, libroId, libroTitulo, librosCompletos,librosFavoritosUser, librosCompradosUser, eliminarFavoritoPorId, librosFiltradosGenero} = require('../controllers/librosController')
 const authMiddleware = require( '../middleware/auth.middleware');
 const {añadirLibroCarrito} = require('../controllers/cartController')
 const router = express.Router();
@@ -23,6 +23,7 @@ router.post('/eliminarLibro', authMiddleware, eliminarFavoritoPorId)
 router.post('/cerrarSesion', cerrarSesion )
 router.post('/librosPublicos', libros)
 router.post('/libroId', libroId)
+router.post('/libroTitulo', libroTitulo)
 router.post('/librosFiltrados', librosFiltradosGenero)
 router.post('/anadirLibroCarrito', authMiddleware ,añadirLibroCarrito)
 

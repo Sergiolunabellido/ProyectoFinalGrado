@@ -2,13 +2,11 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from 'react';
 
-export default function Header() {
+export default function Header({ onSearchChange }) {
     const [estaLogueado, setEstaLogueado] = useState();
     const navigate = useNavigate();
     const location = useLocation();
     const mostrarBuscador = location.pathname === '/catalogo';
-
-   
 
     const handleClick = () => {
         navigate('/login');
@@ -60,7 +58,7 @@ export default function Header() {
                         <div className=" flex items-center justify-center  ml-auto m-1">
                             {mostrarBuscador && (
                                 <form>
-                                    <input type="text" name="q" placeholder="Buscar por nombre, categoria, etc..."
+                                    <input type="text" id="tituloLibro" onChange={onSearchChange} placeholder="Buscar por nombre, categoria, etc..."
                                            className="px-2 py-1 rounded bg-white text-black  md:flex  hidden"/>
                                 </form>
                             )}

@@ -112,7 +112,7 @@ export default function PageBook(){
                         </div>
                         
 
-                        <button id="botonCarrito" className="flex items-center justify-center font-bold text-black bg-[#22C55E] text-xl w-[28%] rounded-lg h-[4rem]" onClick={añadirLibroCarrito}> Añadir al carrito</button>
+                        <button id="botonCarrito" className="flex items-center justify-center font-bold text-black bg-[#22C55E] text-1xl w-[28%] rounded-lg h-[4rem]" onClick={añadirLibroCarrito}> Añadir al carrito</button>
                         <button id="botonCompra" className="flex items-center justify-center font-bold text-black bg-[#22C55E] text-1xl w-[28%] rounded-lg h-[4rem]">Comprar Libro</button>
                     </div>
                     <div id="descripcion" className="flex flex-col items-start text-justify w-[70%] mt-6 mb-5 gap-5">

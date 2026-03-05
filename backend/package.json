@@ -18,7 +18,8 @@
     "express-session": "^1.19.0",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.16.1",
-    "redis": "^5.10.0"
+    "redis": "^5.10.0",
+    "stripe": "^20.4.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

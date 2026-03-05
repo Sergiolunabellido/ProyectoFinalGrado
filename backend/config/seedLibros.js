@@ -21,10 +21,10 @@ async function seedLibros() {
       // Necesitamos ISBN válido
       if (!libro.isbn || libro.isbn.length === 0) continue;
 
-      const isbn = libro.isbn;
-        console.log("Procesando:", libro.title);
-      // Saltar ISBN demasiado largo o raro
-      if (isbn.length > 20) continue;
+      const isbn = Array.isArray(libro.isbn) ? String(libro.isbn[0]) : String(libro.isbn);
+      console.log("Procesando:", libro.title);
+      // Saltar ISBN vacio, demasiado largo o raro
+      if (!isbn || isbn.length > 20) continue;
 
       const titulo = libro.title || "Título desconocido";
       const autor = libro.author_name ? libro.author_name[0] : "Autor desconocido";
@@ -43,7 +43,14 @@ async function seedLibros() {
         (isbn, titulo, autor, categoria, editorial, existencias, url_imagen, descripcion, idioma)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE 
-        titulo = VALUES(titulo)`,
+        titulo = VALUES(titulo),
+        autor = VALUES(autor),
+        categoria = VALUES(categoria),
+        editorial = VALUES(editorial),
+        existencias = VALUES(existencias),
+        url_imagen = VALUES(url_imagen),
+        descripcion = VALUES(descripcion),
+        idioma = VALUES(idioma)`,
         [
             isbn,
             titulo,
