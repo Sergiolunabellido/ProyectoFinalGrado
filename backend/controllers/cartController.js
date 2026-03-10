@@ -42,6 +42,46 @@ async function añadirLibroCarrito(req, res){
 
 
 }
+
+async function librosCarrito(req, res) {
+
+    const idUsuario = req.id_usuario
+
+    let conexion ;
+
+    try{
+
+        conexion = await conexionBD();
+
+        const [libros] = await conexion.execute(
+            `SELECT l.* FROM libros l
+             INNER JOIN carrito c ON l.id_libro = c.id_libro
+             WHERE c.id_user = ?`,
+            [idUsuario]
+        );
+
+        if(libros.length === 0){
+            return res.json({
+                ok: false,
+                mensaje: "No se han encontrado libros para este usuario"
+            });
+        }
+
+        return res.json({
+            ok: true,
+            libros: libros
+        })
+
+    }catch(e){
+        console.log("Error al recoger los libros del carrito del usuario: ", req.id_usuario)
+        return res.status(500).json({ ok: false, mensaje: "Error al recoger los libros del carrito" });
+    } finally {
+        if (conexion) await conexion.end();
+    }
+
+}
+
 module.exports={
-    añadirLibroCarrito
+    añadirLibroCarrito,
+    librosCarrito
 }
