@@ -1,5 +1,32 @@
 📊 Evaluación General Proyecto.
 
+Reevaluación (2026-03-12)
+
+Calificación actual estimada: 8.4/10 (antes 7.5/10)
+Potencial con mejoras restantes: 9.2/10 (antes 9/10)
+
+Comparación rápida (Antes → Ahora)
+
+- Carrito: incompleto → completo con listado, cantidades, totales y eliminación.
+- Catálogo: filtros básicos → filtros por título y género, y se limpian al recargar o entrar desde el header.
+- Home: géneros estáticos → géneros redirigen al catálogo filtrado.
+- Página libro: sin lectura → botón �Resumen� con lectura por voz.
+- UI responsive: parcial → mejoras en filtros del catálogo y tarjetas del perfil.
+- Documentación: buena → ampliada con cambios recientes y comentarios con @brief/@fecha/@returns.
+
+Lo que sigue pendiente (y baja nota si no se hace)
+
+- Stripe/pagos reales no implementados.
+- Rutas privadas en frontend (proteger /perfil y /carrito).
+- Buscador solo funciona en catálogo, falta integrarlo en más vistas si quieres UX global.
+- �Sobre nosotros� y �Contacto� siguen sin página real.
+- AuthContext vacío.
+- Validaciones de formularios y manejo de errores mejorable.
+- secure: false en cookies para producción.
+
+---
+📊 Evaluación General Proyecto.
+
   Calificación estimada: 7.5/10 (actual) → potencial de 9/10 con las mejoras
 
   Tu proyecto es bueno y válido para un TFG de DAM, pero tiene áreas claras de mejora tanto en
