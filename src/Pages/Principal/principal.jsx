@@ -8,23 +8,55 @@ import { Canvas } from "@react-three/fiber";
 import {Libro3D} from '../../utils/utils'
 import { OrbitControls } from "@react-three/drei";
 import { Suspense, useState, useEffect } from "react"
+/**
+ * @brief Página principal con destacados y acceso rápido al catálogo.
+ * @fecha 2026-01-08
+ * @returns {JSX.Element} Vista principal de la app.
+ */
 export default function Principal (){
 
     const navigate = useNavigate();
     const [libros, setLibros] = useState([]);
    
+    /**
+     * @brief Maneja el click en libros destacados (ruta local).
+     * @fecha 2026-01-08
+     * @returns {void} No devuelve nada.
+     */
     const handleClickLibros = () => {
         navigate('');
     };
 
-    const handleClickGeneros = () => {
-        navigate('');
+    /**
+     * @brief Envía al catálogo filtrando por el género elegido.
+     * @fecha 2026-01-08
+     * @returns {void} No devuelve nada.
+     */
+    const handleClickGeneros = (generoNombre) => {
+        const nombre = (generoNombre || "").toLowerCase();
+        let valor = "";
+        if (nombre.includes("fantasia")) valor = "Fantasia";
+        else if (nombre.includes("ciencia")) valor = "Ciencia Ficcion ";
+        else if (nombre.includes("misterio")) valor = "Misterio";
+        else if (nombre.includes("thrill") || nombre.includes("thiller")) valor = "Thriller";
+        if (!valor) return;
+        navigate("/catalogo", { state: { generos: [valor] } });
     };
 
+    /**
+     * @brief Lleva al catálogo completo.
+     * @fecha 2026-01-08
+     * @returns {void} No devuelve nada.
+     */
     const handleClickCatalogo = () => {
         navigate('/catalogo');
     };
 
+    /**
+     * @brief Pide al backend los libros públicos.
+     * @fecha 2026-01-08
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerLibros = async () =>{
     
         try{
@@ -143,6 +175,7 @@ export default function Principal (){
                                         backgroundPosition: "center",
                                         backgroundRepeat: "no-repeat",
                                     }}
+                                    onClick={() => handleClickGeneros(genero.nombre)}
 
                                 >
                                     <h2 className="text-lg font-bold w-ful text-center rounded-md mb-2 p-2 object-cover">

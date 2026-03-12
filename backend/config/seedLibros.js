@@ -1,6 +1,11 @@
 const axios = require("axios");
 const conexionBD = require('../config/db')
 
+/**
+ * @brief Rellena la base de datos con libros de Open Library.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} No devuelve datos.
+ */
 async function seedLibros() {
   try {
     // 🔹 Conexión a la base de datos

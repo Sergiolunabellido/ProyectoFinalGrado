@@ -3,10 +3,9 @@
 const conexionBD = require('../config/db');
 
 /**
- * @brief AñadirLibroCarrito es una funcion que permite añadir el id_libro e id_usuario a la tabla carrito haciendo referencia la usuario que ha guardado 
- * ese libro en su carrito para posteriormente  mostrarlo en el carrito y poder comprarlo.
- * @fecha 02/03/2026
- * @return boolean
+ * @brief Anade un libro al carrito del usuario.
+ * @fecha 2026-02-25
+ * @returns {Promise<void>} Respuesta JSON con el resultado.
  */
 async function añadirLibroCarrito(req, res){
 
@@ -43,6 +42,11 @@ async function añadirLibroCarrito(req, res){
 
 }
 
+/**
+ * @brief Lista los libros del carrito del usuario.
+ * @fecha 2026-02-25
+ * @returns {Promise<void>} Respuesta JSON con los libros.
+ */
 async function librosCarrito(req, res) {
 
     const idUsuario = req.id_usuario
@@ -81,6 +85,11 @@ async function librosCarrito(req, res) {
 
 }
 
+/**
+ * @brief Elimina un libro del carrito.
+ * @fecha 2026-02-25
+ * @returns {Promise<void>} Respuesta JSON con el resultado.
+ */
 async function eliminarLibroCarrito(req, res){
     const idLibro = req.body.id_libro;
     const idUsuario = req.id_usuario;
@@ -111,4 +120,6 @@ module.exports={
     librosCarrito,
     eliminarLibroCarrito
 }
+
+
 

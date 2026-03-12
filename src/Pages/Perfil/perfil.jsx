@@ -4,16 +4,31 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { CerrarSesion } from "../../Services/cerrarSesion";
 
+/**
+ * @brief Pagina de perfil con menu lateral y contenido dinamico.
+ * @fecha 2026-02-05
+ * @returns {JSX.Element} Vista de perfil y compras.
+ */
 export default function Perfil(){
 
     const [perfil, setPerfil] = useState(true);
     const navigate = useNavigate();
 
+    /**
+     * @brief Cierra la sesion y vuelve al inicio.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos.
+     */
     const closeSession = async ()=>{
         await CerrarSesion()
         navigate('/')
     }
 
+    /**
+     * @brief Vuelve a la pagina principal.
+     * @fecha 2026-02-05
+     * @returns {void} No devuelve nada.
+     */
     const volverPrincipal = ()=>{
         navigate('/')
     }
@@ -21,6 +36,11 @@ export default function Perfil(){
         const [gmail, setGmail] = useState("");
         
     
+        /**
+         * @brief Obtiene nombre y correo del usuario.
+         * @fecha 2026-02-05
+         * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+         */
         const obtenerUsuario = async () =>{
         
             try{

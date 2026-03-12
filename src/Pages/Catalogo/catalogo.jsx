@@ -4,21 +4,32 @@ import { Canvas } from "@react-three/fiber";
 import {Libro3D} from '../../utils/utils'
 import { OrbitControls } from "@react-three/drei";
 import { Suspense, useState, useEffect } from "react"
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 
 
 const LIBROS_POR_PAGINA = 12;
 
+/**
+ * @brief Pagina de catalogo con filtros y paginacion.
+ * @fecha 2026-02-15
+ * @returns {JSX.Element} Vista del catalogo de libros.
+ */
 export default function Catalogo(){
 
 
     const navigate = useNavigate();
     const [libros, setLibros] = useState([]);
-    const [generosSeleccionados, setGenerosSeleccionados] = useState([]);
+    const location = useLocation();
+    const [generosSeleccionados, setGenerosSeleccionados] = useState(location.state?.generos || []);
     const [paginaActual, setPaginaActual] = useState(1);
 
 
+    /**
+     * @brief Abre la pagina de detalle de un libro.
+     * @fecha 2026-02-15
+     * @returns {void} No devuelve nada.
+     */
     const irPaginaLibro = (libro) =>{
         navigate(`/libro/${libro.id_libro}`,
             {
@@ -27,6 +38,11 @@ export default function Catalogo(){
         )
     }
 
+    /**
+     * @brief Actualiza la lista de generos seleccionados.
+     * @fecha 2026-02-15
+     * @returns {void} No devuelve nada.
+     */
     const manejarCambioGenero = (e) =>{
         const {value, checked} = e.target;
 
@@ -35,6 +51,11 @@ export default function Catalogo(){
         )
     }
 
+    /**
+     * @brief Trae todos los libros del catalogo.
+     * @fecha 2026-02-15
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerLibros = async () =>{
     
         try{
@@ -60,6 +81,11 @@ export default function Catalogo(){
     };
 
 
+     /**
+      * @brief Filtra libros por titulo o limpia el filtro.
+      * @fecha 2026-02-15
+      * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+      */
      const filtradoTitulo = async (titulo) =>{
 
         if (!titulo || titulo.trim() === '') {
@@ -95,6 +121,25 @@ export default function Catalogo(){
 }, []);
 
  useEffect(() => {
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const esReload = navEntry?.type === "reload";
+    if (esReload) {
+        setGenerosSeleccionados([]);
+        return;
+    }
+    if (Array.isArray(location.state?.generos) && location.state.generos.length > 0) {
+        setGenerosSeleccionados(location.state.generos);
+    } else {
+        setGenerosSeleccionados([]);
+    }
+ }, [location.key]);
+
+ useEffect(() => {
+  /**
+   * @brief Pide al backend los libros filtrados por genero.
+   * @fecha 2026-02-15
+   * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+   */
   const fetchFiltrados = async () => {
     const respuesta = await fetch("http://localhost:5000/librosFiltrados", {
       method: "POST",
@@ -118,6 +163,11 @@ export default function Catalogo(){
     const fin = inicio + LIBROS_POR_PAGINA;
     const librosPaginados = libros.slice(inicio, fin);
 
+    /**
+     * @brief Cambia a una pagina del paginador.
+     * @fecha 2026-02-15
+     * @returns {void} No devuelve nada.
+     */
     const irPagina = (numeroPagina) => {
         if (numeroPagina < 1 || numeroPagina > totalPaginas) return;
         setPaginaActual(numeroPagina);
@@ -128,41 +178,43 @@ export default function Catalogo(){
         <div className='body1 overflow-x-hidden flex flex-col w-screen min-h-screen bg-[#102216] items-center'>
             <Header onSearchChange={(e) => filtradoTitulo(e.target.value)}/>
             <hr className="border-gray-700 border-solid w-[100%] m-[1rem] sm:w-800px opacity-50"/>
-            <div className='flex w-[100%] ms-[40%] sm:m-3 justify-center'>
-                <div className='flex flex-col items-start bg-white/5 w-[15%] h-[25rem] hidden md:flex rounded-xl p-5 m-5'>
+            <div className='flex w-full flex-col md:flex-row md:items-start md:justify-center gap-4 px-4'>
+                <div className='flex flex-col items-start bg-white/5 w-full md:w-[18rem] h-auto md:h-[25rem] rounded-xl p-5 md:m-5'>
 
                     <h1 className='text-white font-bold text-[1.5rem]'>Filtros</h1>
 
-                    <div className='flex flex-col items-start w-full ' id='generos'>
+                    <div className='flex flex-col items-start w-full' id='generos'>
                         <p className='text-white/50 text-[1.3rem] m-1.5'>Géneros</p>
                         <hr className="border-gray-700 border-solid w-[100%] "/>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Fantasia' onChange={manejarCambioGenero}/>
-                            <p className='text-white/50 text-[1rem]'>Fantasia</p>
-                        </div>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Ciencia Ficcion 'onChange={manejarCambioGenero} />
-                            <p className='text-white/50 text-[1rem]'>Ciencia Ficción</p>
-                        </div>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Misterio'onChange={manejarCambioGenero}/>
-                            <p className='text-white/50 text-[1rem]'>Misterio</p>
-                        </div>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Thriller'onChange={manejarCambioGenero}/>
-                            <p className='text-white/50 text-[1rem]'>Thriller</p>
-                        </div>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Novela'onChange={manejarCambioGenero}/>
-                            <p className='text-white/50 text-[1rem]'>Novela</p>
-                        </div>
-                        <div className='flex items-center gap-2 m-3'>
-                            <input type="checkbox" value='Programacion'onChange={manejarCambioGenero}/>
-                            <p className='text-white/50 text-[1rem]'>Programacion</p>
+                        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-1 gap-2 mt-3 w-full'>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Fantasia' onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Fantasia')}/>
+                                <span className='text-white/50 text-[1rem]'>Fantasia</span>
+                            </label>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Ciencia Ficcion 'onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Ciencia Ficcion ')}/>
+                                <span className='text-white/50 text-[1rem]'>Ciencia Ficción</span>
+                            </label>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Misterio'onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Misterio')}/>
+                                <span className='text-white/50 text-[1rem]'>Misterio</span>
+                            </label>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Thriller'onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Thriller')}/>
+                                <span className='text-white/50 text-[1rem]'>Thriller</span>
+                            </label>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Novela'onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Novela')}/>
+                                <span className='text-white/50 text-[1rem]'>Novela</span>
+                            </label>
+                            <label className='flex items-center gap-2'>
+                            <input type="checkbox" value='Programacion'onChange={manejarCambioGenero} checked={generosSeleccionados.includes('Programacion')}/>
+                                <span className='text-white/50 text-[1rem]'>Programacion</span>
+                            </label>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-wrap items-center w-[90%] m-2'>
+                <div className='flex flex-wrap items-center w-full md:w-[90%] m-2'>
                         {librosPaginados.map((libro) => (
                                 <div
                                     key={`${libro.id_libro ?? "libro"}`}
@@ -242,3 +294,5 @@ export default function Catalogo(){
         </div>
     )
 }
+
+

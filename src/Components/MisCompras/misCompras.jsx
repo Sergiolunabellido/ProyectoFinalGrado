@@ -4,12 +4,22 @@ import { useNavigate } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import {Libro3D} from '../../utils/utils'
 import { OrbitControls } from "@react-three/drei";
+/**
+ * @brief Lista las compras realizadas por el usuario.
+ * @fecha 2026-02-05
+ * @returns {JSX.Element} Vista con el historial de compras.
+ */
 export default function MisCompras(){
 
     const navigate = useNavigate()
 
     const [compras, setCompras] = useState([]);
 
+    /**
+     * @brief Pide al backend las compras del usuario.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerDatosCompra = async () => {
     try {
         let respuesta = await fetch("http://localhost:5000/librosComprados", {

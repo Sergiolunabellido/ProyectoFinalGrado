@@ -55,6 +55,16 @@ El objetivo es tener una base sólida para evolucionar hacia una **librería onl
 
 ---
 
+## 🆕 Novedades recientes (2026-03-12)
+
+- Botón **“Resumen”** en la página del libro que lee la descripción con `speechSynthesis` y selecciona la mejor voz disponible.
+- En la home, las tarjetas de género **redirigen al catálogo filtrado** por ese género.
+- En el catálogo, los filtros **se limpian** al recargar la página o al entrar desde el **link “Catálogo”** del header.
+- Panel de filtros y listado de géneros **responsive** en el catálogo.
+- En perfil, las tarjetas de estadísticas se apilan en móvil y los favoritos se **centran** en pantallas pequeñas.
+
+---
+
 ## 🏗️ Arquitectura general
 
 Arquitectura en tres capas:
@@ -195,6 +205,7 @@ En `App.js` se definen las rutas:
   - Llama a `POST /librosPublicos`.
   - Renderiza libros con componente 3D `Libro3D`.
 - Sección de géneros usando `generosArray`.
+- Al pulsar un género, navega a `/catalogo` con el filtro aplicado.
 - Incluye `Header` y `Footer`.
 
 ### Catálogo (`/catalogo`)
@@ -202,9 +213,17 @@ En `App.js` se definen las rutas:
 **Componente:** `Catalogo`
 
 - Llama a `POST /libros` para traer catálogo completo.
-- Envía token en header `Authorization`.
-- Renderiza tarjetas de libros en 3D.
-- Incluye panel de filtros visuales (UI preparada, sin lógica aún).
+- Filtro por título con `POST /libroTitulo`.
+- Filtro por géneros con `POST /librosFiltrados`.
+- Limpia filtros al recargar o al entrar desde el link “Catálogo”.
+- Renderiza tarjetas de libros en 3D y panel de filtros responsive.
+
+### Página del libro (`/libro/:id`)
+
+**Componente:** `PageBook`
+
+- Botón **“Resumen”** debajo del canvas que lee la descripción con voz.
+- Selección automática de la mejor voz disponible en español.
 
 ### Perfil (`/perfil`)
 
@@ -216,6 +235,7 @@ En `App.js` se definen las rutas:
   - `MisCompras`: historial de compras.
 - Cierre de sesión vía `POST /cerrarSesion` y borrado de token local.
 - Renovación automática de token (`POST /refresh`) cuando una ruta protegida responde `401`.
+- Tarjetas de estadísticas apiladas en móvil y favoritos centrados en pantallas pequeñas.
 
 ### Pantalla de Login / Registro (`/login`)
 
@@ -236,6 +256,7 @@ En `App.js` se definen las rutas:
 - **Header (`Header`)**:
 
   - Navegación principal.
+  - El link “Catálogo” entra con filtros limpios.
   - Botón de usuario dinámico:
     - Con token ➝ `/perfil`.
     - Sin token ➝ `/login`.

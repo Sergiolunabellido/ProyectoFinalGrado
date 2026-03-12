@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 const conexionBD = require('../config/db');
 
 /**
- * @brief Compruebo si el token guardado en la base de datos aun no a expirado y si este
- * a expirado creo un nuevo token para que el usuario pueda seguir con la sesion iniciada
+ * @brief Renueva el access token usando el refresh token.
+ * @fecha 2026-01-20
+ * @returns {Promise<void>} Respuesta JSON con el nuevo token.
  */
-
 async function refreshAccessToken(req, res) {
     const  refreshToken  = req.cookies.refreshToken;
 

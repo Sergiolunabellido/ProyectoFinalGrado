@@ -5,13 +5,20 @@ import { renovarToken } from "../../utils/utils";
 
 import toast from 'react-hot-toast';
 
-
-
-
+/**
+ * @brief Pagina de carrito con listado y resumen de compra.
+ * @fecha 2026-02-25
+ * @returns {JSX.Element} Vista del carrito.
+ */
 export default function Carrito(){
 
     const navigate = useNavigate();
     const yaCargadoRef = useRef(false);
+    /**
+     * @brief Vuelve al catalogo para seguir comprando.
+     * @fecha 2026-02-25
+     * @returns {void} No devuelve nada.
+     */
     const handleClickCatalogo = () => {
         navigate('/catalogo');
     };
@@ -22,6 +29,11 @@ export default function Carrito(){
     const [precioLibro, setPrecioLibro] = useState()
     const PRECIO_ENVIO = 5.99;
 
+    /**
+     * @brief Suma una unidad al libro indicado.
+     * @fecha 2026-02-25
+     * @returns {void} No devuelve nada.
+     */
     const cantidadMas1 = ((idLibro)=>{
         setCantidadesPorLibro((prev) => ({
             ...prev,
@@ -29,6 +41,11 @@ export default function Carrito(){
         }));
     })
 
+    /**
+     * @brief Elimina un libro del carrito en backend y refresca lista.
+     * @fecha 2026-02-25
+     * @returns {Promise<void>} No devuelve datos.
+     */
     const eliminarLibro = (async (idLibro) => {
         try{
             await fetch("http://localhost:5000/eliminarLibroCarrito",{
@@ -46,6 +63,11 @@ export default function Carrito(){
         }
     })
 
+    /**
+     * @brief Resta una unidad y elimina si llega a cero.
+     * @fecha 2026-02-25
+     * @returns {void} No devuelve nada.
+     */
     const cantidadMenos1 = ((idLibro)=>{
         setCantidadesPorLibro((prev) => {
             const actual = prev[idLibro] ?? 1;
@@ -74,6 +96,11 @@ export default function Carrito(){
         return subtotal + PRECIO_ENVIO;
     }, [subtotal]);
 
+    /**
+     * @brief Carga los libros del carrito con control de token.
+     * @fecha 2026-02-25
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const recogerLibrosCarrito = async () =>{
 
         try{

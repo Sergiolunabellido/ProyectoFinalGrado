@@ -6,6 +6,11 @@ import { Canvas } from "@react-three/fiber";
 import {Libro3D} from '../../utils/utils'
 import { OrbitControls } from "@react-three/drei";
 
+/**
+ * @brief Vista con estadisticas y libros favoritos del usuario.
+ * @fecha 2026-02-05
+ * @returns {JSX.Element} Panel de perfil con favoritos.
+ */
 export default function MiPerfil(){
     const navigate = useNavigate()
     const [usuario, setUsuario] = useState("");
@@ -20,6 +25,11 @@ export default function MiPerfil(){
     });
 
 
+    /**
+     * @brief Abre el menu contextual para un libro.
+     * @fecha 2026-02-05
+     * @returns {void} No devuelve nada.
+     */
     const abrirMenuContextual = (e, libro) => {
         e.preventDefault();
         e.stopPropagation();
@@ -31,10 +41,20 @@ export default function MiPerfil(){
         });
     };
 
+    /**
+     * @brief Cierra el menu contextual.
+     * @fecha 2026-02-05
+     * @returns {void} No devuelve nada.
+     */
     const cerrarMenuContextual = () => {
         setMenuCtx((m) => ({ ...m, visible: false }));
     };
 
+    /**
+     * @brief Elimina un libro de favoritos.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const eliminarFavorito = async (idFavorito) => {
     
         let respuesta = await fetch("http://localhost:5000/eliminarLibro",{
@@ -61,6 +81,11 @@ export default function MiPerfil(){
 
 
 
+    /**
+     * @brief Obtiene el nombre del usuario logueado.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerUsuario = useCallback(
         async () =>{
     
@@ -107,6 +132,11 @@ export default function MiPerfil(){
         
     },[navigate]) 
 
+    /**
+     * @brief Carga los libros favoritos y calcula el genero mas repetido.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerLibros = useCallback(
         async () =>{
         try{
@@ -164,6 +194,11 @@ export default function MiPerfil(){
         }
     },[navigate]) 
 
+    /**
+     * @brief Carga el total de libros comprados.
+     * @fecha 2026-02-05
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const obtenerComprados = useCallback(
         async () =>{
         try{
@@ -219,12 +254,12 @@ export default function MiPerfil(){
     return(
         <>
             <h1 className="text-2xl lg:text-5xl">Bienvenido de nuevo, {usuario}</h1>
-            <div className="flex gap-5 items-center mt-[5%] w-full">
-                    <div className="flex flex-col items-start justify-center p-5 gap-3 w-1/2 h-[10rem] border-solid border-[1px] border-[#39ff14]/15 rounded-lg bg-[#1a3a25]/50">
+            <div className="flex flex-col md:flex-row gap-5 items-center mt-[5%] w-full">
+                    <div className="flex flex-col items-start justify-center p-5 gap-3 w-full md:w-1/2 h-[10rem] border-solid border-[1px] border-[#39ff14]/15 rounded-lg bg-[#1a3a25]/50">
                         <p className="text-xl text-gray-300">Libros Comprados</p>
                         <p className="text-3xl font-black">{librosComprados || "0"}</p>
                     </div>
-                    <div className="flex flex-col items-start justify-center p-5 gap-3 w-1/2  h-[10rem] border-solid border-[1px] border-[#39ff14]/15 rounded-lg bg-[#1a3a25]/50">
+                    <div className="flex flex-col items-start justify-center p-5 gap-3 w-full md:w-1/2  h-[10rem] border-solid border-[1px] border-[#39ff14]/15 rounded-lg bg-[#1a3a25]/50">
                         <p className="text-xl text-gray-300">Genero Favorito</p>
                         <p className="text-3xl font-black">{generoFavorito || "No tiene favoritos"}</p>
                     </div>
@@ -233,7 +268,7 @@ export default function MiPerfil(){
             <div id="divFavoritos" className="flex flex-col gap-5 items-start mt-[3%] w-full ">
                 <h1 className="text-2xl lg:text-3xl flex-shrink-0">Tu Biblioteca de Favoritos</h1>
 
-                <div className="flex gap-5 items-center mt-[1%] w-full overflow-x-auto pb-3 flex-wrap ">
+                <div className="flex gap-5 items-center justify-center md:justify-start mt-[1%] w-full overflow-x-auto pb-3 flex-wrap ">
                     <h1 id="textoAviso" className="text-2xl"></h1>
                     {librosFavoritos.map((libro, index) => (
                         <div

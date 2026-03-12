@@ -9,10 +9,20 @@ jest.mock(
   'react-router-dom',
   () => {
     const React = require('react');
+    /**
+     * @brief Actualiza la ruta simulada para los tests.
+     * @fecha 2026-03-10
+     * @returns {void} No devuelve nada.
+     */
     const setPath = (path) => {
       mockCurrentPath = path;
     };
 
+    /**
+     * @brief Comprueba si una ruta coincide con el path actual.
+     * @fecha 2026-03-10
+     * @returns {boolean} True si coincide, false si no.
+     */
     const matchPath = (routePath, path) => {
       if (routePath === path) return true;
       if (!routePath) return false;
@@ -24,15 +34,30 @@ jest.mock(
     };
 
     return {
+      /**
+       * @brief Router simulado para pruebas.
+       * @fecha 2026-03-10
+       * @returns {JSX.Element} Contenedor con hijos.
+       */
       MemoryRouter: ({ initialEntries, children }) => {
         if (initialEntries && initialEntries[0]) setPath(initialEntries[0]);
         return <div>{children}</div>;
       },
+      /**
+       * @brief Renderiza la ruta que coincide.
+       * @fecha 2026-03-10
+       * @returns {JSX.Element|null} Elemento de ruta o null.
+       */
       Routes: ({ children }) => {
         const list = React.Children.toArray(children);
         const match = list.find((child) => matchPath(child.props.path, mockCurrentPath));
         return match ? match.props.element : null;
       },
+      /**
+       * @brief Devuelve el elemento de ruta.
+       * @fecha 2026-03-10
+       * @returns {JSX.Element} Elemento de ruta.
+       */
       Route: ({ element }) => element,
       __setPath: setPath,
     };
@@ -48,6 +73,11 @@ jest.mock('./Pages/Carrito/carrito', () => () => <div data-testid="page-carrito"
 jest.mock('./Pages/Libros/paginaLibro', () => () => <div data-testid="page-libro" />);
 
 describe('App routing', () => {
+  /**
+   * @brief Renderiza la app en una ruta concreta.
+   * @fecha 2026-03-10
+   * @returns {ReturnType<render>} Resultado del render.
+   */
   const renderAt = (path) =>
     render(
       <MemoryRouter initialEntries={[path]}>

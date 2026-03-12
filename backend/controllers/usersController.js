@@ -1,5 +1,10 @@
 const conexionBD = require('../config/db');
 const jwt = require('jsonwebtoken')
+/**
+ * @brief Lista todos los usuarios.
+ * @fecha 2026-02-05
+ * @returns {Promise<void>} Respuesta JSON con la lista.
+ */
 async function listarUsuarios(req, res){
     let conexion;
 
@@ -16,6 +21,11 @@ async function listarUsuarios(req, res){
     }
 }
 
+/**
+ * @brief Devuelve el usuario segun el id del token.
+ * @fecha 2026-02-05
+ * @returns {Promise<void>} Respuesta JSON con el usuario.
+ */
 async function listarUsuariosId(req, res){
     let conexion;
 
@@ -41,6 +51,11 @@ async function listarUsuariosId(req, res){
 };
 
 
+/**
+ * @brief Cierra la sesion y limpia el refresh token.
+ * @fecha 2026-02-05
+ * @returns {Promise<void>} Respuesta JSON de cierre.
+ */
 async function cerrarSesion(req, res){
     let conexion;
     const refreshToken = req.cookies.refreshToken;

@@ -1,6 +1,11 @@
 const conexionBD = require('../config/db');
 
 
+/**
+ * @brief Crea un libro en la base de datos.
+ * @fecha 2026-01-08
+ * @returns {Promise<object>} Resultado de la insercion.
+ */
 async function crearLibro(isbn, titulo, autor, precio, stock) {
     let conexion;
     try {
@@ -19,6 +24,11 @@ async function crearLibro(isbn, titulo, autor, precio, stock) {
     }
 }
 
+/**
+ * @brief Lista libros con un limite simple.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con libros.
+ */
 async function libros(req, res) {
     let conexion;
     try {
@@ -45,6 +55,11 @@ async function libros(req, res) {
     }
 }
 
+/**
+ * @brief Busca un libro por id.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con el libro.
+ */
 async function libroId(req, res) {
     let conexion;
     let {id_libro} = req.body;
@@ -73,6 +88,11 @@ async function libroId(req, res) {
 }
 
 
+/**
+ * @brief Busca libros por titulo.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con resultados.
+ */
 async function libroTitulo(req, res) {
     let conexion;
     let {titulo_libro} = req.body;
@@ -105,6 +125,11 @@ async function libroTitulo(req, res) {
 }
 
 
+/**
+ * @brief Lista todos los libros sin limite.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con libros.
+ */
 async function librosCompletos(req, res) {
     let conexion;
     try {
@@ -132,6 +157,11 @@ async function librosCompletos(req, res) {
 }
 
 
+/**
+ * @brief Lista los favoritos del usuario.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con favoritos.
+ */
 async function librosFavoritosUser(req, res) {
     const id_usuario = req.id_usuario;
     console.log(id_usuario)
@@ -180,6 +210,11 @@ async function librosFavoritosUser(req, res) {
     }
 }
 
+/**
+ * @brief Anade un libro a favoritos.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con resultado.
+ */
 async function anadirFavorito(req, res){
     const id_usuario = req.id_usuario;
     const id_libro = req.body.id_libro;
@@ -226,6 +261,11 @@ async function anadirFavorito(req, res){
     }
 }
 
+/**
+ * @brief Elimina un favorito por id.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con resultado.
+ */
 async function eliminarFavoritoPorId(req,res) {
     const id_favorito = req.body.idFavorito
     let conexion;
@@ -257,6 +297,11 @@ async function eliminarFavoritoPorId(req,res) {
 
 
 //FUNCIONES LIBROS COMPRADOS
+/**
+ * @brief Lista los libros comprados por el usuario.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con compras.
+ */
 async function librosCompradosUser(req, res){
    const id_usuario = req.id_usuario;
     let conexion;
@@ -289,6 +334,11 @@ async function librosCompradosUser(req, res){
 
 
 //FUNCION LIBROS FILTRADOS
+/**
+ * @brief Filtra libros por una lista de categorias.
+ * @fecha 2026-01-08
+ * @returns {Promise<void>} Respuesta JSON con libros filtrados.
+ */
 async function librosFiltradosGenero(req, res) {
   let conexion;
   try {

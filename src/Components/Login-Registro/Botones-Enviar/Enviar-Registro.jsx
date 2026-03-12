@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * @brief Boton que envia el registro al backend y muestra el resultado.
+ * @fecha 2026-01-12
+ * @returns {JSX.Element} Boton y mensajes de estado.
+ */
 export default function BotonEnviarRegistro({nombre, email, password}){
 
     const [error, setError] = useState('');
     const [correcto, setCorrecto] = useState('');
     const navigate = useNavigate();
 
+    /**
+     * @brief Envia los datos de registro y redirige si todo va bien.
+     * @fecha 2026-01-12
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado.
+     */
     const enviarRegistro = async (e) => {
         e.preventDefault();
         try{

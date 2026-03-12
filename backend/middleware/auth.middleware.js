@@ -1,5 +1,11 @@
 const jwt = require("jsonwebtoken");
 
+/**
+ * @brief Middleware que valida el token JWT.
+ * @fecha 2026-01-20
+ * @returns {void} Continua o responde con error.
+ */
+
 module.exports = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 

@@ -1,3 +1,8 @@
+/**
+ * @brief Selector simple para alternar entre login y registro.
+ * @fecha 2026-01-12
+ * @returns {JSX.Element} Botones para cambiar de vista.
+ */
 export default function InicioRegistro({ isLoginView, setIsLoginView }) {
     return (
         <div className="opciones flex justify-center items-center w-[100%] m-auto h-[5vh]">

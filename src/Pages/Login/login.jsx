@@ -4,6 +4,11 @@ import './styles-login.css';
 import InicioRegistro from '../../Components/Login-Registro/InicioRegistro/inicioRegistro';
 import BotonEnviarLogin from '../../Components/Login-Registro/Botones-Enviar/Enviar-Login'
 import BotonEnviarRegistro from '../../Components/Login-Registro/Botones-Enviar/Enviar-Registro';
+/**
+ * @brief Pantalla de login y registro con cambio de vista.
+ * @fecha 2026-01-12
+ * @returns {JSX.Element} Formulario de acceso y registro.
+ */
 export default function Login() {
     // Estado: true = Login, false = Registro
     const [isLoginView, setIsLoginView] = useState(true);

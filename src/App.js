@@ -8,6 +8,11 @@ import Perfil from './Pages/Perfil/perfil'
 import Catalogo from './Pages/Catalogo/catalogo';
 import Carrito from './Pages/Carrito/carrito';
 
+/**
+ * @brief Componente raiz con rutas principales.
+ * @fecha 2026-01-08
+ * @returns {JSX.Element} Contenedor de rutas.
+ */
 function App() {
   return (
     <div className="App">

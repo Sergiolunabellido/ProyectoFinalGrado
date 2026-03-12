@@ -1,9 +1,9 @@
 ﻿# 📚 GoblinVerse (proyectode0) — Documentación Técnica Completa
 
-Fecha de documentación: 2026-03-11
+Fecha de documentación: 2026-03-12
 
 ## ✨ Resumen
-GoblinVerse es una aplicación full-stack para una librería fantástica. Incluye un frontend React con navegación SPA y renderizado 3D de portadas, y un backend Express con autenticación JWT (access + refresh), persistencia en MySQL y endpoints para usuarios, libros, favoritos, compras y carrito. El diseño visual se apoya en Tailwind CSS y estilos personalizados.
+GoblinVerse es una aplicación full-stack para una librería fantástica. Incluye un frontend React con navegación SPA y renderizado 3D de portadas, y un backend Express con autenticación JWT (access + refresh), persistencia en MySQL y endpoints para usuarios, libros, favoritos, compras y carrito. El diseño visual se apoya en Tailwind CSS y estilos personalizados. La página del libro incluye lectura por voz de la descripción.
 
 ## 🎯 Objetivo de este documento
 Cubrir el 100% de los archivos relevantes del repositorio (excluyendo `node_modules`) y explicar el comportamiento de cada pieza de código, los flujos principales, la estructura de carpetas y los puntos pendientes detectados.
@@ -175,6 +175,7 @@ Scripts backend:
 - Muestra libros con el componente 3D `Libro3D` dentro de un `Canvas`.
 - Incluye listado de géneros usando `generosArray`.
 - `handleClickCatalogo` navega a `/catalogo`.
+- Al pulsar un género, navega a `/catalogo` con el filtro aplicado.
 
 2. `src/Pages/Catalogo/catalogo.jsx`
 - Llama a `POST /libros` para listado completo.
@@ -182,6 +183,8 @@ Scripts backend:
 - Filtro por géneros con `POST /librosFiltrados`.
 - Paginación local con `LIBROS_POR_PAGINA = 12`.
 - Al hacer click en un libro navega a `/libro/:id` pasando el libro por `state`.
+- Limpia filtros al recargar o al entrar desde el link “Catálogo”.
+- Panel de filtros y géneros responsive.
 
 3. `src/Pages/Libros/paginaLibro.jsx`
 - Muestra detalle del libro:
@@ -192,6 +195,7 @@ Scripts backend:
 - `anadirFavorito()` llama a `POST /anadirFavorito`.
 - Si no hay `state.libro`, carga desde `POST /libroId`.
 - Calcula un “precio original” sumando 10 al precio actual.
+- Botón “Resumen” que lee la descripción con `speechSynthesis` y voz automática.
 
 4. `src/Pages/Login/login.jsx`
 - Alterna entre modo login y registro con `isLoginView`.
@@ -215,10 +219,11 @@ Scripts backend:
 ### 🧱 Componentes
 
 - `src/Components/Header/header.jsx`
-  - Muestra logo, navegación y buscador.
-  - El buscador solo aparece en `/catalogo`.
-  - Botón usuario depende de si hay token en `localStorage`.
-  - Botón carrito navega a `/carrito`.
+- Muestra logo, navegación y buscador.
+- El buscador solo aparece en `/catalogo`.
+- Botón usuario depende de si hay token en `localStorage`.
+- Botón carrito navega a `/carrito`.
+- El link “Catálogo” entra con filtros limpios.
 
 - `src/Components/Footer/footer.jsx`
   - Pie de página con copyright.
@@ -226,8 +231,9 @@ Scripts backend:
 - `src/Components/MiPerfil/miPerfil.jsx`
   - Obtiene datos de usuario (`/usuarios`), favoritos (`/librosFavoritos`) y compras (`/librosComprados`).
   - Calcula el género favorito por frecuencia.
-  - Lista favoritos con portadas 3D.
-  - Menú contextual (clic derecho) para eliminar favorito (`/eliminarLibro`).
+- Lista favoritos con portadas 3D.
+- Menú contextual (clic derecho) para eliminar favorito (`/eliminarLibro`).
+- Tarjetas de estadísticas apiladas en móvil y favoritos centrados en pantallas pequeñas.
 
 - `src/Components/MisCompras/misCompras.jsx`
   - Lista compras del usuario (`/librosComprados`).

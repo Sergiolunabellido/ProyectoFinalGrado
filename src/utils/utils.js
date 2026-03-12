@@ -1,6 +1,11 @@
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 
+/**
+ * @brief Pide un nuevo access token usando refresh token.
+ * @fecha 2026-01-10
+ * @returns {Promise<string|null>} Token nuevo o null si falla.
+ */
 export const renovarToken = async () => {
     try {
         let respuesta = await fetch('http://localhost:5000/refresh', {
@@ -29,6 +34,11 @@ export const renovarToken = async () => {
 
 const TEXTURA_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
+/**
+ * @brief Renderiza un libro 3D con la portada como textura.
+ * @fecha 2026-01-10
+ * @returns {JSX.Element} Malla 3D del libro.
+ */
 export function Libro3D({ libro }) {
     const urlPortada = typeof libro?.url_imagen === "string" ? libro.url_imagen.trim() : "";
     const portadaSrc = urlPortada && !urlPortada.includes(",") ? urlPortada : TEXTURA_TRANSPARENTE;

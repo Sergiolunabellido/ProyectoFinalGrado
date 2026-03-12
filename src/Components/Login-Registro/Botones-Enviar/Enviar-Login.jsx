@@ -2,17 +2,20 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 /**
- * @brief Esta funcion realiza una peticion al back-end para comprobar si el usuario se encuentra registrado
- * en la base de datos, asi como generar un token junto a las sesiones correspondientes que permitiran gestionar
- * las acciones de dicho usuario y guardarlas en la base de datos.
- * @param {usuario, contraseña} param0 
- * @returns error: div_error || button(enviar)
+ * @brief Boton que valida el login y guarda el token si todo va bien.
+ * @fecha 2026-01-12
+ * @returns {JSX.Element} Boton y posible mensaje de error.
  */
 export default function BotonEnviarLogin({usuario, contraseña}){
 
     const [error, setError] = useState("");
     const navigate = useNavigate(); 
 
+    /**
+     * @brief Envia las credenciales al backend y gestiona la respuesta.
+     * @fecha 2026-01-12
+     * @returns {Promise<void>} No devuelve datos, solo actualiza estado y navega.
+     */
     const comprobarLogin = async () =>{
     
         try{

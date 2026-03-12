@@ -2,6 +2,11 @@ const conexionBD = require('../config/db');
 const bcrypt = require('bcryptjs');
 
 
+/**
+ * @brief Registra un usuario nuevo con password encriptada.
+ * @fecha 2026-01-12
+ * @returns {Promise<void>} Respuesta JSON con estado del registro.
+ */
 async function registrarUsuario(req, res) {
     const { nombre, email, password } = req.body;
     try {

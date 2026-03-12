@@ -1,3 +1,8 @@
+/**
+ * @brief Cierra sesion en backend y limpia el token local.
+ * @fecha 2026-02-05
+ * @returns {Promise<void>} No devuelve datos.
+ */
 export async function CerrarSesion(){    
 
     //Peticion al backend para borrar refreshtoken de la base de datos y borrar refreshtoken de la cookie.

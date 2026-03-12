@@ -3,6 +3,11 @@ const conexionBD = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+/**
+ * @brief Comprueba el login y genera token y refresh token.
+ * @fecha 2026-01-12
+ * @returns {Promise<void>} Respuesta JSON con resultado del login.
+ */
 async function comprobarLogin(req, res) {
   const { usuario, contraseña } = req.body;
 

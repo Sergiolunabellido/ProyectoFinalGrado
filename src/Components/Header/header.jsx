@@ -1,21 +1,49 @@
-
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from 'react';
 
+/**
+ * @brief Cabecera principal con navegacion y buscador.
+ * @fecha 2026-01-09
+ * @returns {JSX.Element} Barra superior de la app.
+ */
 export default function Header({ onSearchChange }) {
     const [estaLogueado, setEstaLogueado] = useState();
     const navigate = useNavigate();
     const location = useLocation();
     const mostrarBuscador = location.pathname === '/catalogo';
 
+    /**
+     * @brief Abre la pantalla de login.
+     * @fecha 2026-01-09
+     * @returns {void} No devuelve nada.
+     */
     const handleClick = () => {
         navigate('/login');
     };
+    /**
+     * @brief Abre el perfil del usuario.
+     * @fecha 2026-01-09
+     * @returns {void} No devuelve nada.
+     */
     const handleClickPerfil = () =>{
         navigate('/perfil')
     }
+    /**
+     * @brief Abre el carrito.
+     * @fecha 2026-01-09
+     * @returns {void} No devuelve nada.
+     */
     const handleClickCarrito = () =>{
         navigate('/carrito')
+    }
+    /**
+     * @brief Abre el catalogo limpiando filtros.
+     * @fecha 2026-01-09
+     * @returns {void} No devuelve nada.
+     */
+    const handleClickCatalogo = (e) =>{
+        e.preventDefault();
+        navigate('/catalogo', { state: null });
     }
 
     useEffect(() => {
@@ -48,7 +76,7 @@ export default function Header({ onSearchChange }) {
                         <nav className="flex flex-wrap items-center m-1 flex-1 text-[1rem] md:flex hidden justify-center">
                             <ul className="flex flex-wrap space-x-4 m-1 items-center mx-auto">
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <li><a href="/catalogo" className="hover:underline ">Catálogo</a></li>
+                                <li><a href="/catalogo" className="hover:underline " onClick={handleClickCatalogo}>Catálogo</a></li>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <li><a href="#seccionDestacados" className="hover:underline ">Novedades</a></li>
                                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

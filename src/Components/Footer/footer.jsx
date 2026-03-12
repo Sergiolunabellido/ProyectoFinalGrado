@@ -1,3 +1,8 @@
+/**
+ * @brief Pie de pagina con aviso de derechos.
+ * @fecha 2026-01-09
+ * @returns {JSX.Element} Pie de pagina simple.
+ */
 export default function Footer() {
     return (
         <footer className="w-[90%] text-white p-4 mt-4 m-10">
